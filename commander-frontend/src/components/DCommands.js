@@ -11,6 +11,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  TablePagination,
   withStyles,
   ButtonGroup,
   Button,
@@ -18,6 +19,8 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DCommandsForm from "./DCommandsForm";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { railscasts } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const styles = (theme) => ({
   root: {
@@ -28,45 +31,85 @@ const styles = (theme) => ({
   paper: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
-  },
+  }
 });
 
-const DCommands = ({ classes, ...props }) => {
+const columns = [
+  { id: "HowTo", label: "How To", minWidth: 170, align: 'center' },
+  { id: "Line", label: "Line", minWidth: 170, align: 'center'},
+  { id: "Line", label: "Platform", minWidth: 170,align: 'center' },
+];
 
-const [currentId, setCurrentId]= useState(0);
+const DCommands = ({ classes, ...props }) => {
+  const [currentId, setCurrentId] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, props.DCommandsActionList.length - page * rowsPerPage);
 
   useEffect(() => {
     props.fetchAllDCommands();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); //componentDidMount
 
-  const {addToast}= useToasts();
-  const onDelete = id => {
-    if(window.confirm("Are you sure you want to delete this record?"))
-    props.deleteDCommands(id,()=> addToast("Deleted successfully", {appearance: 'info'}));
-  }
+  const { addToast } = useToasts();
+  const onDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this record?"))
+      props.deleteDCommands(id, () =>
+        addToast("Deleted successfully", { appearance: "info" })
+      );
+  };
 
   return (
     <Paper className={classes.paper} elevation={3}>
       <Grid container>
-        <Grid item xs={6}>
-          <DCommandsForm {...({currentId, setCurrentId})}/>
+        <Grid item xs={4}>
+          <DCommandsForm {...{ currentId, setCurrentId }} />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <TableContainer>
             <Table>
               <TableHead className={classes.root}>
                 <TableRow>
-                  <TableCell>How To</TableCell>
-                  <TableCell>Line</TableCell>
-                  <TableCell>Platform</TableCell>
+                {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.DCommandsActionList.map((record, index) => {
+                {props.DCommandsActionList.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                ).map((record, index) => {
                   return (
-                    <TableRow key={index} hover onClick={()=>{setCurrentId(record.id)}}>
+                    <TableRow
+                      key={index}
+                      hover
+                      onClick={() => {
+                        setCurrentId(record.id);
+                      }}
+                    >
                       <TableCell>{record.howTo}</TableCell>
-                      <TableCell>{record.line}</TableCell>
+                      <TableCell style={{whiteSpace:"pre"}}>
+                      <SyntaxHighlighter language={record.syntax} style={railscasts}>
+                        {record.line}
+                        </SyntaxHighlighter>
+                        </TableCell>
                       <TableCell>{record.platform}</TableCell>
                       <TableCell>
                         <ButtonGroup variant="text">
@@ -89,8 +132,22 @@ const [currentId, setCurrentId]= useState(0);
                     </TableRow>
                   );
                 })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={props.DCommandsActionList.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
           </TableContainer>
         </Grid>
       </Grid>
@@ -104,7 +161,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionToProps = {
   fetchAllDCommands: actions.fetchAllCommands,
-  deleteDCommands: actions.deleteCommand
+  deleteDCommands: actions.deleteCommand,
 };
 
 export default connect(

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Grid, TextField, withStyles, Button } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Grid, TextField, withStyles, Button, FormControl,Select, InputLabel } from "@material-ui/core";
 import { connect } from "react-redux";
 import useForm from "./useForm";
 import * as actions from "../actions/DCommandsAction";
@@ -9,8 +9,12 @@ const styles = (theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      minWidth: 230,
+      width: "65ch",
     },
+  },
+  formControl: {
+    margin: theme.spacing(2),
+    minWidth: 120,
   },
   smMargin: {
     margin: theme.spacing(1),
@@ -21,11 +25,12 @@ const initialFieldValues = {
   howTo: "",
   line: "",
   platform: "",
+  syntax: ""
 };
 
 const DCommandsFrom = ({ classes, ...props }) => {
   //toast msg
-  const {addToast}=useToasts();
+  const { addToast } = useToasts();
 
   //validate()
   //validate({howTo:'Stuff'})
@@ -46,8 +51,8 @@ const DCommandsFrom = ({ classes, ...props }) => {
     setErrors({
       ...tempInput,
     });
-    if (fieldValues == values) {
-      return Object.values(tempInput).every((x) => x == "");
+    if (fieldValues === values) {
+      return Object.values(tempInput).every((x) => x === "");
     }
   };
 
@@ -73,17 +78,17 @@ const DCommandsFrom = ({ classes, ...props }) => {
         addToast("Updated successfully", { appearance: "success" });
       };
 
-      if (props.currentId == 0) props.createDCommands(values, onSuccessCreate);
-
+      if (props.currentId === 0) props.createDCommands(values, onSuccessCreate);
       else props.updateDCommands(props.currentId, values, onSuccessUpdate);
     }
   };
 
   useEffect(() => {
-    if (props.currentId != 0)
+    if (props.currentId !== 0)
       setValues({
-        ...props.DCommandsActionList.find((x) => x.id == props.currentId),
+        ...props.DCommandsActionList.find((x) => x.id === props.currentId),
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.currentId]);
 
   return (
@@ -104,8 +109,11 @@ const DCommandsFrom = ({ classes, ...props }) => {
             {...(errors.howTo && { error: true, helperText: errors.howTo })}
           />
           <TextField
+            id="outlined-multiline-static"
             name="line"
             variant="outlined"
+            multiline
+            rows={10}
             label="Line"
             value={values.line}
             onChange={handleInputChange}
@@ -123,7 +131,28 @@ const DCommandsFrom = ({ classes, ...props }) => {
               helperText: errors.platform,
             })}
           />
+           <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-age-native-simple">Syntax Highlight</InputLabel>
+        <Select
+          native
+          value={values.syntax}
+          onChange={handleInputChange}
+          label="Syntax Highlight"
+          inputProps={{
+            name: 'syntax',
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option aria-label="None" value="None" />
+          <option value="sql">SQL</option>
+          <option value="javascript">Javascript</option>
+          <option value="csharp">C# / DotNet</option>
+          <option value="css">CSS</option>
+        </Select>
+      </FormControl>
         </Grid>
+      </Grid>
+      <Grid container>
         <Grid item xs={6}>
           <div>
             <Button

@@ -11,6 +11,7 @@ namespace Commander.Models
         [Required]
         public string Line { get; set; }
         [Required]
-        public string Platform { get; set; }
+        public string Platform { get; set; }  
+        public string Syntax {get; set;}
     }
 }

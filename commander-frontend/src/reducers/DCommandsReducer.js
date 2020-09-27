@@ -21,7 +21,7 @@ export const DCommandsReducer = (state = initialState, action) => {
       return {
         ...state,
         list: state.list.map((x) =>
-          x.id == action.payload.id ? action.payload : x
+          x.id === action.payload.id ? action.payload : x
         ),
       };
     }
@@ -29,7 +29,7 @@ export const DCommandsReducer = (state = initialState, action) => {
     case ACTION_TYPES.DELETE: {
       return {
         ...state,
-        list: state.list.filter(x => x.id != action.payload),
+        list: state.list.filter(x => x.id !== action.payload),
       };
     }
     default:
