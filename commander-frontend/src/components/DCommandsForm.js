@@ -108,6 +108,7 @@ const DCommandsFrom = ({ classes, ...props }) => {
             onChange={handleInputChange}
             {...(errors.howTo && { error: true, helperText: errors.howTo })}
           />
+          
           <TextField
             id="outlined-multiline-static"
             name="line"
@@ -144,10 +145,14 @@ const DCommandsFrom = ({ classes, ...props }) => {
           }}
         >
           <option aria-label="None" value="None" />
-          <option value="sql">SQL</option>
+          <option value="powershell">Powershell</option>
+          <option value="bash">Bash</option>
+          <option value="pgsql">Postgres-SQL</option>
+          <option value="sql">T-SQL</option>
           <option value="javascript">Javascript</option>
           <option value="csharp">C# / DotNet</option>
           <option value="css">CSS</option>
+          <option value="dockerfile">docker file</option>  
         </Select>
       </FormControl>
         </Grid>

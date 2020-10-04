@@ -37,7 +37,7 @@ const styles = (theme) => ({
 const columns = [
   { id: "HowTo", label: "How To", minWidth: 170, align: 'center' },
   { id: "Line", label: "Line", minWidth: 170, align: 'center'},
-  { id: "Line", label: "Platform", minWidth: 170,align: 'center' },
+  { id: "Platform", label: "Platform", minWidth: 170,align: 'center' },
 ];
 
 const DCommands = ({ classes, ...props }) => {
