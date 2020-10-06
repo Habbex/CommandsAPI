@@ -4,13 +4,14 @@ import { store } from "./actions/store";
 import { Provider } from "react-redux";
 import DCommands from "./components/DCommands";
 import { ToastProvider } from "react-toast-notifications";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import SwitchUI from "@material-ui/core/Switch";
-
+import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
+import IconButton from '@material-ui/core/IconButton';
 
 import { CustomThemeContext } from "./themes/provider/CustomThemeProvider";
 
@@ -43,24 +44,31 @@ function App() {
   return (
     <Provider store={store}>
       <ToastProvider autoDismiss={true}>
-          <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-              <Typography variant="h6" className={classes.title}>
-                Material UI Theme Switcher
+        <AppBar position="fixed" color="primary" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Knowledge base
               </Typography>
-              <FormControlLabel
-                control={
-                  <SwitchUI checked={isDark} onChange={handleThemeChange} />
-                }
-                label={currentTheme}
-              />
-            </Toolbar>
-          </AppBar>
-          <main>
-        {/* Hero unit */}
-        <div className={classes.Content}>
-          <DCommands />
-        </div>
+            <FormControlLabel
+              control={
+                <SwitchUI checked={isDark} onChange={handleThemeChange} />
+              }
+              label={currentTheme}
+            />
+          </Toolbar>
+        </AppBar>
+        <main>
+          <div className={classes.Content}>
+            <DCommands />
+          </div>
         </main>
       </ToastProvider>
     </Provider>

@@ -98,7 +98,7 @@ const DCommandsFrom = ({ classes, ...props }) => {
       className={classes.root}
       onSubmit={handleSubmit}
     >
-        <Grid item md={6}>
+        <Grid item md={4}>
           <TextField
             name="howTo"
             variant="outlined"
@@ -159,14 +159,13 @@ const DCommandsFrom = ({ classes, ...props }) => {
           <div>
             <Button
               variant="contained"
-              color="primary"
               type="submit"
               className={classes.smMargin}
             >
               Submit
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               className={classes.smMargin}
               onClick={resetForm}
             >

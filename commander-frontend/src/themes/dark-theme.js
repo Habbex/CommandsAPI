@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-
+const fonts = "'Cairo', Robot";
 //Dark theme
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +23,7 @@ const theme = createMuiTheme({
     }
   },
   typography:{
-    fontFamily: ["Verdana", "Helvetica", "Arial", "sans-serif"].join(','),
+    fontFamily: fonts,
   },
   
   text:{
