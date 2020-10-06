@@ -1,9 +1,9 @@
-import dark from './dark-theme';
-import normal from './normal-theme';
+import normal from './default-theme';
+import vapor from './vapor-theme';
 
 const themes={
     normal,
-    dark,
+    vapor,
 }
 
 export default function getTheme(theme){

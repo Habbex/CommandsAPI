@@ -95,7 +95,7 @@ let theme = createMuiTheme({
       dark: '#005075' //  DarkImperialBlue
     },
     secondary: {
-      main: '#DEF0F7', // Azure
+      main: '#FC4E3D', // OrgeOdor
       light: '#B9E6F6' // Diamond
     },
     error: {
@@ -130,23 +130,41 @@ let theme = createMuiTheme({
   },
   //Overrides default theme for button with variant contained
   overrides: {
+    MuiTableCell:{
+      head:{
+        color:'#00C3EA'
+      }
+    },
+    MuiOutlinedInput:{
+      root:{
+        '& fieldset':{
+          borderColor:'#0090D1'
+        },
+        '&:hover fieldset': {
+          borderColor: '#00C3EA !important',
+        },  
+      }
+    },
     // Style sheet name ⚛️
     MuiButton: {
-      // Name of the rule
-      contained: {
-        // Some CSS
-        background: 'linear-gradient(45deg, #0090D1 30%, #00C3EA 90%)',
-        borderRadius: 3,
-        border: 0,
-        color: 'white',
+      // Name of the rule contained + primary color!
+      containedPrimary: {
+          // Some CSS
+          background: 'linear-gradient(45deg, #0090D1 30%, #00C3EA 90%)',
+          borderRadius: 3,
+          border: 0,
+          color: 'white',
       },
-      outlined: {
-        // Some CSS
-        background: 'white',
-        borderBlockColor:'#0090D1',
+      // Name of the rule outlined + secondary color!
+      outlinedSecondary: {
+          // Some CSS
+          borderRadius: 3,
+          background: 'white',
+          borderColor: '#0090D1',
+          color: '#0090D1'
+        }     
       },
     },
-  },
 })
 theme = responsiveFontSizes(theme);
 export default theme

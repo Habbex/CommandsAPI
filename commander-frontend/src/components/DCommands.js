@@ -82,7 +82,6 @@ const DCommands = ({ classes, ...props }) => {
   };
 
   return (
-    <Container maxWidth="xl">
       <Paper className={classes.paper} elevation={3}>
         <Grid container>
           <Grid item md={6}>
@@ -180,7 +179,7 @@ const DCommands = ({ classes, ...props }) => {
         </Grid>
         </Grid>
       </Paper>
-    </Container>
+
   );
 };
 

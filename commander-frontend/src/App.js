@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const { currentTheme, setTheme } = useContext(CustomThemeContext);
-  const isDark = Boolean(currentTheme === "dark");
+  const isDark = Boolean(currentTheme === "vapor");
 
   const handleThemeChange = (event) => {
     const { checked } = event.target;
     if (checked) {
-      setTheme("dark");
+      setTheme("vapor");
     } else {
       setTheme("normal");
     }

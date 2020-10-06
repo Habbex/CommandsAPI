@@ -159,6 +159,7 @@ const DCommandsFrom = ({ classes, ...props }) => {
           <div>
             <Button
               variant="contained"
+              color="primary"
               type="submit"
               className={classes.smMargin}
             >
@@ -166,6 +167,7 @@ const DCommandsFrom = ({ classes, ...props }) => {
             </Button>
             <Button
               variant="outlined"
+              color="secondary" 
               className={classes.smMargin}
               onClick={resetForm}
             >
