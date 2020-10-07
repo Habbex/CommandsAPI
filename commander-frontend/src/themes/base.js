@@ -1,6 +1,8 @@
-import normal from './default-theme';
-import vapor from './vapor-theme';
+import {CreateDefaultTheme} from './default-theme';
+import {CreateVaporTheme} from './vapor-theme';
 
+const vapor= CreateVaporTheme();
+const normal= CreateDefaultTheme();
 const themes={
     normal,
     vapor,
