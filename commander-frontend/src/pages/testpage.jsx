@@ -36,7 +36,7 @@ const TestPage = () => {
                 <Paper className={classes.paper} elevation={3}>
                     <Grid item xs={12} container>
                         <Grid item xs={12}>
-                            <Typography variant="h1">Responsive h1</Typography>
+                            <Typography variant="h1">Responsive h1!!</Typography>
                             <Typography variant="h2">Responsive h2</Typography>
                             <Typography variant="h3">Responsive h3</Typography>
                             <Typography variant="h4">Responsive h4</Typography>

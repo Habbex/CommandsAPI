@@ -3,8 +3,8 @@
 version: '3'
 
 services:
-  commander:
-    image: commander
+  commander-backend:
+    container_name: commander-backend
     build:
       context: .
       dockerfile: Commander/Dockerfile
@@ -23,9 +23,27 @@ services:
       - mssql
     command: 
       - "sleep 5;" 
+
+  commander-frontend:
+    tty: true
+    container_name: commander-frontend
+    build:
+      context: ./commander-frontend
+      dockerfile: Dockerfile
+    ports: 
+      - "3001:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+      - NODE_ENV=development  
+    depends_on: 
+      - commander-backend
+
   mssql:
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
     container_name: mssql
+    build:
+      context: ./Database
+      dockerfile: Dockerfile
     user: root
     environment:
       "ACCEPT_EULA": "Y"
