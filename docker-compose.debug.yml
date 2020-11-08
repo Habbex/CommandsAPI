@@ -10,15 +10,12 @@ services:
       dockerfile: Commander/Dockerfile
     ports:
       - "5000:80"
-      - "5001:443"
     environment:
-      ASPNETCORE_URLS: "https://+;http://+"
-      ASPNETCORE_HTTPS_PORT: "5001"
+      ASPNETCORE_URLS: "http://+"
+      ASPNETCORE_HTTPS_PORT: "5000"
       ASPNETCORE_ENVIRONMENT: Development
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
-      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
-      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
     depends_on: 
       - mssql
     command: 
