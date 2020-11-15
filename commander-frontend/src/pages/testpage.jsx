@@ -1,19 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-    Container,
     Grid,
     Paper,
-    TableContainer,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    TablePagination,
-    withStyles,
-    ButtonGroup,
-    Button,
     Typography,
 } from "@material-ui/core";
 
@@ -37,10 +26,10 @@ const TestPage = () => {
                     <Grid item xs={12} container>
                         <Grid item xs={12}>
                             <Typography variant="h1">Responsive h1!!</Typography>
-                            <Typography variant="h2">Responsive h2</Typography>
-                            <Typography variant="h3">Responsive h3</Typography>
-                            <Typography variant="h4">Responsive h4</Typography>
-                            <Typography variant="h5">Responsive h5</Typography>
+                            <Typography variant="h2">Responsive h2!!!</Typography>
+                            <Typography variant="h3">Responsive h3!!</Typography>
+                            <Typography variant="h4">Responsive h4!!</Typography>
+                            <Typography variant="h5">Responsive h5!!</Typography>
                         </Grid>
                         <Grid item xs={12} container>
                             <Grid item xs={12}>

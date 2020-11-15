@@ -1,38 +1,39 @@
 # Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
 
-version: '3'
+version: '3.7'
 
 services:
   commander-backend:
+    image: mcr.microsoft.com/dotnet/core/sdk:3.1
     container_name: commander-backend
-    build:
-      context: .
-      dockerfile: Commander/Dockerfile
-    ports:
-      - "5000:80"
     environment:
-      ASPNETCORE_URLS: "http://+"
-      ASPNETCORE_HTTPS_PORT: "5000"
+      ASPNETCORE_URLS: "http://+:80"
       ASPNETCORE_ENVIRONMENT: Development
+      DOTNET_USE_POLLING_FILE_WATCHER : 1
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
+      - ./Commander:/Commander
+    ports:
+      - "5000:80"
+    working_dir: /Commander
+    command: bash -c "dotnet restore && dotnet watch run --no-launch-profile"
     depends_on: 
       - mssql
-    command: 
-      - "sleep 5;" 
 
   commander-frontend:
-    tty: true
     container_name: commander-frontend
     build:
       context: ./commander-frontend
       dockerfile: Dockerfile
+    volumes:
+       - ./commander-frontend:/usr/src/app/commander-frontend
+       - /usr/src/app/commander-frontend/node_modules
     ports: 
       - "3001:3000"
     environment:
       - CHOKIDAR_USEPOLLING=true
       - COMPOSE_CONVERT_WINDOWS_PATHS=1
-      - NODE_ENV=development  
+    stdin_open: true   
     depends_on: 
       - commander-backend
 

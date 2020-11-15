@@ -2,17 +2,11 @@
 FROM node:13.12.0-alpine
 
 # set working directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/commander-frontend
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY public /usr/src/app/public
-COPY src /usr/src/app/src
-COPY package.json /usr/src/app/package.json
-RUN npm install
+# install app dependencies
+COPY package*.json ./
+RUN npm install --silent
 
 # start app
-
 CMD ["npm", "start"]
