@@ -1,6 +1,7 @@
-FROM mcr.microsoft.com/mssql/server:2019-latest
+FROM mcr.microsoft.com/mssql/server:2019-CU2-ubuntu-16.04
 
 USER root
+
 RUN apt-get update && apt-get install unzip -y
 
 # Install SQLPackage for Linux and make it executable
@@ -11,9 +12,18 @@ RUN wget -progress=bar:force -q -O sqlpackage.zip https://go.microsoft.com/fwlin
     && mkdir /tmp/db \
     && chown -R mssql /tmp/db
 
+
+RUN mkdir /var/opt/sqlserver
+RUN mkdir /var/opt/sqlserver/data
+RUN mkdir /var/opt/sqlserver/log
+RUN mkdir /var/opt/sqlserver/backup
+
+RUN chown -R mssql /var/opt/sqlserver
+
 # Lower the privilege
 USER mssql
 
+#Add the Bacpac to the image
 COPY CommanderDB.bacpac /tmp/db/CommanderDB.bacpac
 # Configure external build arguments to allow configurability.
 ARG DBNAME=CommanderDB
@@ -30,3 +40,5 @@ RUN ( /opt/mssql/bin/sqlservr & ) | grep -q "Service Broker manager has started"
     && rm -r /tmp/db \
     && pkill sqlservr \
     && rm -r /opt/sqlpackage
+
+CMD /opt/mssql/bin/sqlservr

@@ -18,7 +18,7 @@ services:
     working_dir: /Commander
     command: bash -c "dotnet restore && dotnet watch run --no-launch-profile"
     depends_on: 
-      - mssql
+      - commander-mssql
 
   commander-frontend:
     container_name: commander-frontend
@@ -33,27 +33,33 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - COMPOSE_CONVERT_WINDOWS_PATHS=1
-    stdin_open: true   
+    stdin_open: true
+    tty: true   
     depends_on: 
       - commander-backend
 
-  mssql:
-    container_name: mssql
+  commander-mssql:
+    container_name: commander-mssql
     build:
       context: ./Database
       dockerfile: Dockerfile
-    user: root
-    environment:
-      "ACCEPT_EULA": "Y"
-      "SA_PASSWORD": "${MSSQL_PASSWORD}"
+    env_file:
+      - .env
     ports:  
       - ${MSSQL_PORT:-1433}:1433
     volumes: 
-      - ${MSSQL_DATA_DIR}:/var/opt/sqlserver/data
-      - ${MSSQL_LOG_DIR}:/var/opt/sqlserver/log
-      - ${MSSQL_BACKUP_DIR}:/var/opt/sqlserver/backup
+        - sqlsystem:/var/opt/mssql/
+        - sqldata:/var/opt/sqlserver/data
+        - sqllog:/var/opt/sqlserver/log
+        - sqlbackup:/var/opt/sqlserver/backup
     healthcheck:
       test: ['CMD', '/opt/mssql-tools/bin/sqlcmd', '-U', 'sa', '-P', '${MSSQL_PASSWORD}', '-Q', 'select 1']
       interval: 10s
       timeout: 3s
       retries: 2
+
+volumes:
+  sqlsystem:
+  sqldata:
+  sqllog:
+  sqlbackup:

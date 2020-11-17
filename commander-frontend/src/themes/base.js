@@ -1,11 +1,11 @@
 import {CreateDefaultTheme} from './default-theme';
-import {CreateVaporTheme} from './vapor-theme';
+import {CreateDarkTheme} from './dark-theme';
 
-const vapor= CreateVaporTheme();
+const dark= CreateDarkTheme();
 const normal= CreateDefaultTheme();
 const themes={
     normal,
-    vapor,
+    dark,
 }
 
 export default function getTheme(theme){

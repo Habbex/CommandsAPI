@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Commander.Controllers
 {
-     // api/ping
+    // api/ping
     [Route("api/[controller]")]
     [ApiController]
-       public class PingController : ControllerBase
+    public class PingController : ControllerBase
     {
-           // GET api/ping
+    // GET api/ping
         [HttpGet]
         public ActionResult PingService()
         {     
-            return Ok("Ping, I'm alive :D");
+            return Ok("Ping, I'm alive :D!!!");
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Commander
             // (
             //     Configuration.GetConnectionString("CommanderConnection")
             // ));
-            var connection = @"Server=mssql;Database=CommanderDB;User=sa;Password=Test1337!!;";
+            var connection = @"Server=commander-mssql;Database=CommanderDB;User=sa;Password=Test1337!!;";
             services.AddDbContext<CommanderContext>(options => options.UseSqlServer(connection));
        
             services.AddControllers().AddNewtonsoftJson(setup =>

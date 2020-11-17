@@ -1,10 +1,10 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 const fonts = "'Cairo', Robot";
 //Dark theme
-const theme = createMuiTheme({
+const darkTheme = {
   palette: {
     type: "dark",
-    background:{
+    background: {
       default: '#141d30',
       paper: '#141d26'
     },
@@ -22,16 +22,21 @@ const theme = createMuiTheme({
       },
     }
   },
-  typography:{
+  typography: {
     fontFamily: fonts,
   },
-  
-  text:{
+
+  text: {
     primary: '#c1c1c1',
     secondary: '#ffffff'
-  }
-// inputMultiline:{
-//   background: '#192735',
-// },
-});
-export default theme
+  },
+  inputMultiline: {
+    background: '#192735',
+  },
+}
+export const CreateDarkTheme = (overrides = {}) =>
+  responsiveFontSizes(createMuiTheme({
+    ...darkTheme,
+    ...overrides,
+  })
+  );

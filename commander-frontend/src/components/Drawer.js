@@ -98,16 +98,15 @@ const Drawer = props => {
         }
     ];
     const { currentTheme, setTheme } = useContext(CustomThemeContext);
-    const isDark = Boolean(currentTheme === "vapor");
+    const isDark = Boolean(currentTheme === "dark");
 
     const handleThemeChange = (event) => {
         const { checked } = event.target;
         if (checked) {
-            setTheme("vapor");
+            setTheme("dark");
         } else {
             setTheme("normal");
         }
-        console.log(currentTheme);
     };
 
     const [open, setOpen] = React.useState(false);
