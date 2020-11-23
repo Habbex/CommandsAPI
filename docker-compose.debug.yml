@@ -4,14 +4,16 @@ version: '3.7'
 
 services:
   commander-backend:
-    image: mcr.microsoft.com/dotnet/core/sdk:3.1
     container_name: commander-backend
+    build:
+      context: ./Commander
+      dockerfile: Dockerfile
     environment:
       ASPNETCORE_URLS: "http://+:80"
       ASPNETCORE_ENVIRONMENT: Development
       DOTNET_USE_POLLING_FILE_WATCHER : 1
     volumes:
-      - ~/.vsdbg:/remote_debugger:rw
+      - ~/.vsdbg:/vsdbg/remote_debugger:rw
       - ./Commander:/Commander
     ports:
       - "5000:80"
