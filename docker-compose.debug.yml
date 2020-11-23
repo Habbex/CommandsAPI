@@ -12,6 +12,7 @@ services:
       ASPNETCORE_URLS: "http://+:80"
       ASPNETCORE_ENVIRONMENT: Development
       DOTNET_USE_POLLING_FILE_WATCHER : 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
     volumes:
       - ~/.vsdbg:/vsdbg/remote_debugger:rw
       - ./Commander:/Commander

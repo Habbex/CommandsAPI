@@ -12,9 +12,6 @@ RUN apt-get update \
 
 WORKDIR /Commander
 
-ENV DOTNET_USE_POLLING_FILE_WATCHER 1
-ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
-
 COPY . /Commander
 
 ENTRYPOINT ["dotnet", "watch", "run" , "--urls=http://*:80"] 

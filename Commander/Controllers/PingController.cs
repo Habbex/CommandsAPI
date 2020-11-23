@@ -12,7 +12,7 @@ namespace Commander.Controllers
         [HttpGet]
         public ActionResult PingService()
         {     
-            return Ok("Ping, I'm alive :D!");
+            return Ok("Ping, I'm alive :D!!!");
         }
     }
 }
