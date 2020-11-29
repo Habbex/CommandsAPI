@@ -34,6 +34,9 @@ namespace Commander
             // (
             //     Configuration.GetConnectionString("CommanderConnection")
             // ));
+
+            services.AddHealthChecks(); // Registers health check services
+
             var connection = @"Server=commander-mssql;Database=CommanderDB;User=sa;Password=Test1337!!;";
             services.AddDbContext<CommanderContext>(options => options.UseSqlServer(connection));
        
@@ -68,6 +71,7 @@ namespace Commander
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

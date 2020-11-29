@@ -14,4 +14,7 @@ WORKDIR /Commander
 
 COPY . /Commander
 
+HEALTHCHECK --interval=2s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl --fail http://localhost/health || exit 1
+
 ENTRYPOINT ["dotnet", "watch", "run" , "--urls=http://*:80"] 
